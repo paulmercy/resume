@@ -171,69 +171,44 @@ Start Content
       
       <div class="row gx-5"> 
         <!-- My Education -->
-        {% for education in educations %}
+        <h2 class="text-6 text-white fw-600 mb-4">My Education</h2>
         <div class="col-md-6">
-          <h2 class="text-6 text-white fw-600 mb-4">My Education</h2>
+          {% for education in educations %}
           <div class="bg-dark rounded p-4 mb-4">
-            <p class="badge bg-danger text-2 fw-400">2018 - 2020</p>
-            <h3 class="text-5 text-white">Computer Engineering</h3>
-            <p class="text-primary">Federal Polytechnic, Oko</p>
-            <p class="text-white-50 mb-0">Lisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure.</p>
+            <p class="badge bg-danger text-2 fw-400">{{education.date}}</p>
+            <h3 class="text-5 text-white">{{education.course}}</h3>
+            <p class="text-primary">{{education.institution}}</p>
+            <p class="text-white-50 mb-0">{{education.description|safe}}</p>
           </div>
+          {%  endfor %} 
         </div>
-        {%  endfor %} 
         
         <!-- My Experience -->
         <div class="col-md-6">
           <h2 class="text-6 text-white fw-600 mb-4">My Experience</h2>
+          {% for experience in experiences %}
           <div class="bg-dark rounded p-4 mb-4">
-            <p class="badge bg-danger text-2 fw-400">2012 - 2013</p>
-            <h3 class="text-5 text-white">UI Designer</h3>
-            <p class="text-primary">unknown</p>
-            <p class="text-white-50 mb-0">Lisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure.</p>
+            <p class="badge bg-danger text-2 fw-400">{{experience.date}}</p>
+            <h3 class="text-5 text-white">{{experience.title}}</h3>
+            <p class="text-primary">{{experience.organisation}}</p>
+            <p class="text-white-50 mb-0">{{experience.description|safe}}</p>
           </div>
-          <div class="bg-dark rounded p-4 mb-4">
-            <p class="badge bg-danger text-2 fw-400">2014 - 2016</p>
-            <h3 class="text-5 text-white">QA Engineer</h3>
-            <p class="text-primary">unknown</p>
-            <p class="text-white-50 mb-0">Lisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure.</p>
-          </div>
-         
+          {%  endfor %}
         </div>
       </div>
+
       <!-- My Skills -->
-  <h2 class="text-6 text-white fw-600 mt-4 mb-4">My Skills</h2>
+      <h2 class="text-6 text-white fw-600 mt-4 mb-4">My Skills</h2>
       <div class="row gx-5">
+        {% for skill in skills %}
         <div class="col-md-6">
-          <p class="text-light fw-500 text-start mb-2">Linux<span class="float-end">65%</span></p>
+          <p class="text-light fw-500 text-start mb-2">{{skill.name}}<span class="float-end">{{skill.score}}%</span></p>
           <div class="progress progress-sm bg-dark mb-4">
-            <div class="progress-bar" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <p class="text-light fw-500 text-start mb-2">HTML<span class="float-end">95%</span></p>
-          <div class="progress progress-sm bg-dark mb-4">
-            <div class="progress-bar" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <p class="text-light fw-500 text-start mb-2">Android Java <span class="float-end">80%</span></p>
-          <div class="progress progress-sm bg-dark mb-4">
-            <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar" role="progressbar" style="width: {{skill.score}}%" aria-valuenow="{{skill.score}}" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
         </div>
-        <div class="col-md-6">
-          <p class="text-light fw-500 text-start mb-2">React JS <span class="float-end">70%</span></p>
-          <div class="progress progress-sm bg-dark mb-4">
-            <div class="progress-bar" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <p class="text-light fw-500 text-start mb-2">Django<span class="float-end">60%</span></p>
-          <div class="progress progress-sm bg-dark mb-4">
-            <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <p class="text-light fw-500 text-start mb-2">Tailwind CSS<span class="float-end">65%</span></p>
-          <div class="progress progress-sm bg-dark mb-4">
-            <div class="progress-bar" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-        </div>
+        {%  endfor %}
       </div>
-      <div class="text-center mt-5"><a href="#" class="btn btn-outline-secondary rounded-pill shadow-none">Download CV <span class="ms-1"><i class="fas fa-download"></i></span></a></div>
     </div>
   </section>
   <!-- Resume end --> 
@@ -354,94 +329,25 @@ Start Content
       <!-- Heading end-->
       
       <div class="owl-carousel owl-light owl-theme" data-loop="true" data-nav="false" data-autoplay="false" data-margin="25" data-stagepadding="0" data-slideby="1" data-items-xs="1" data-items-sm="1" data-items-md="1" data-items-lg="2">
+        {% for testimonial in testimonials %}
+        {% if testimonial.is_active %}
         <div class="item">
           <div class="bg-dark rounded p-5">
-            <div class="d-flex align-items-center mt-auto mb-4"> <img class="img-fluid rounded-circle d-inline-block w-auto" src="images/testimonial/client-sm-3.jpg" alt="">
-              <p class="ms-3 mb-0"><strong class="d-block text-white fw-600">Dennis Jacques</strong> <span class="text-white-50 fw-500">User from USA</span></p>
+            <!-- Picture size such be 65 x 65 px -->
+            <div class="d-flex align-items-center mt-auto mb-4"> <img class="img-fluid rounded-circle d-inline-block w-auto" src="{{testimonial.thumbnail.url}}" alt="">
+              <p class="ms-3 mb-0"><strong class="d-block text-white fw-600">{{testimonial.name}}</strong> <span class="text-white-50 fw-500">{{testimonial.role}}</span></p>
             </div>
-            <p class="text-light mb-4">“Only trying it out since a few days. But up to now excellent. Seems to work flawlessly. priced simply dummy text of the printing and typesetting industry.”</p>
+            <p class="text-light mb-4">{{testimonial.quote}}</p>
             <span class="text-2"> <i class="fas fa-star text-warning"></i> <i class="fas fa-star text-warning"></i> <i class="fas fa-star text-warning"></i> <i class="fas fa-star text-warning"></i> <i class="fas fa-star text-warning"></i> </span> </div>
         </div>
-        <div class="item">
-          <div class="bg-dark rounded p-5">
-            <div class="d-flex align-items-center mt-auto mb-4"> <img class="img-fluid rounded-circle d-inline-block w-auto" src="images/testimonial/client-sm-1.jpg" alt="">
-              <p class="ms-3 mb-0"><strong class="d-block text-white fw-600">Jay Shah</strong> <span class="text-white-50 fw-500">Founder at Icomatic Pvt Ltd</span></p>
-            </div>
-            <p class="text-light mb-4">"Easy to use, reasonably priced simply dummy text of the printing and typesetting industry. Quidam lisque persius interesset his et, in quot quidam possim iriure.”</p>
-            <span class="text-2"> <i class="fas fa-star text-warning"></i> <i class="fas fa-star text-warning"></i> <i class="fas fa-star text-warning"></i> <i class="fas fa-star text-warning"></i> <i class="fas fa-star text-warning"></i> </span> </div>
-        </div>
-        <div class="item">
-          <div class="bg-dark rounded p-5">
-            <div class="d-flex align-items-center mt-auto mb-4"> <img class="img-fluid rounded-circle d-inline-block w-auto" src="images/testimonial/client-sm-2.jpg" alt="">
-              <p class="ms-3 mb-0"><strong class="d-block text-white fw-600">Patrick Cary</strong> <span class="text-white-50 fw-500">Freelancer from USA</span></p>
-            </div>
-            <p class="text-light mb-4">“I am happy Working with printing and typesetting industry. Quidam lisque persius interesset his et, in quot quidam persequeris essent possim iriure.”</p>
-            <span class="text-2"> <i class="fas fa-star text-warning"></i> <i class="fas fa-star text-warning"></i> <i class="fas fa-star text-warning"></i> <i class="fas fa-star text-warning"></i> <i class="fas fa-star text-warning"></i> </span> </div>
-        </div>
-        <div class="item">
-          <div class="bg-dark rounded p-5">
-            <div class="d-flex align-items-center mt-auto mb-4"> <img class="img-fluid rounded-circle d-inline-block w-auto" src="images/testimonial/client-sm-4.jpg" alt="">
-              <p class="ms-3 mb-0"><strong class="d-block text-white fw-600">Chris Tom</strong> <span class="text-white-50 fw-500">User from UK</span></p>
-            </div>
-            <p class="text-light mb-4">“I have used them twice now. Good rates, very efficient service and priced simply dummy text of the printing and typesetting industry quidam interesset his et. Excellent.”</p>
-            <span class="text-2"> <i class="fas fa-star text-warning"></i> <i class="fas fa-star text-warning"></i> <i class="fas fa-star text-warning"></i> <i class="fas fa-star text-warning"></i> <i class="fas fa-star text-warning"></i> </span> </div>
-        </div>
+        {% endif %}
+        {% endfor %}
       </div>
     </div>
   </section>
   <!-- Testimonial end --> 
   
-  <!-- Contact Me
-  ============================================= -->
-  <section id="contact" class="section bg-dark-2">
-    <div class="container px-lg-5">
-      <!-- Heading -->
-      <div class="position-relative d-flex text-center mb-5">
-        <h2 class="text-24 text-white-50 opacity-1 text-uppercase fw-600 w-100 mb-0">Contact</h2>
-        <p class="text-9 text-white fw-600 position-absolute w-100 align-self-center lh-base mb-0">Get in Touch<span class="heading-separator-line border-bottom border-3 border-primary d-block mx-auto"></span> </p>
-      </div>
-      <!-- Heading end-->
-      <div class="row gy-5">
-        <div class="col-md-4 col-xl-3 order-1 order-md-0 text-center text-md-start">
-          <h2 class="mb-3 text-5 text-white text-uppercase">Address</h2>
-          <p class="text-3 text-light mb-4">No 11 Floor, Plot No.22,<br>
-            145 Murphy Ado-Au.<br>
-            Lagos </p>
-          <p class="text-3 text-light mb-1"><span class="text-primary text-4 me-2"><i class="fas fa-phone"></i></span>+234 7033474776</p>
-          <p class="text-3 text-light mb-1"><span class="text-primary text-4 me-2"><i class="fas fa-fax"></i></span>+234 8166387977</p>
-          <p class="text-3 text-light mb-4"><span class="text-primary text-4 me-2"><i class="fas fa-envelope"></i></span>ikeadimpaul@gmail.com</p>
-          <h2 class="mb-3 text-5 text-white text-uppercase">Follow Me</h2>
-          <ul class="social-icons social-icons-muted justify-content-center justify-content-md-start">
-            <li class="social-icons-dribbble"><a data-bs-toggle="tooltip" href="http://www.dribbble.com/harnishdesign/" target="_blank" title="Dribbble"><i class="fab fa-dribbble"></i></a></li>
-            <li class="social-icons-twitter"><a data-bs-toggle="tooltip" href="https://twitter.com/harnishdesign/" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a></li>
-            <li class="social-icons-facebook"><a data-bs-toggle="tooltip" href="http://www.facebook.com/harnishdesign/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
-            <li class="social-icons-google"><a data-bs-toggle="tooltip" href="http://www.google.com/" target="_blank" title="Google"><i class="fab fa-google"></i></a></li>
-            <li class="social-icons-github"><a data-bs-toggle="tooltip" href="http://www.github.com/" target="_blank" title="GitHub"><i class="fab fa-github"></i></a></li>
-          </ul>
-        </div>
-        <div class="col-md-8 col-xl-9 order-0 order-md-1">
-          <h2 class="mb-3 text-5 text-white text-uppercase text-center text-md-start">Send us a note</h2>
-    <form id="contact-form" class="form-dark" action="php/mail.php" method="post">
-      <div class="row g-4">
-              <div class="col-xl-6">
-                  <input name="name" type="text" class="form-control" required="" placeholder="Name">
-              </div>
-              <div class="col-xl-6">
-                  <input name="email" type="email" class="form-control" required="" placeholder="Email">
-              </div>
-      <div class="col">
-        <textarea name="form-message" class="form-control" rows="5" required="" placeholder="Tell us more about your needs........"></textarea>
-      </div>
-            </div>
-            <p class="text-center mt-4 mb-0">
-      <button id="submit-btn" class="btn btn-primary rounded-pill d-inline-flex" type="submit">Send Message</button>
-            </p>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- Contact Me end --> 
+    
   
 </div>
 <!-- Content end --> 

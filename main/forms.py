@@ -1,27 +1,16 @@
 from django import forms
-from .models import ContactProfile
 
+class ContactForm(forms.Form):
+    
+    name = forms.CharField(max_length=50)
+    email = forms.EmailField(required=False)
+    message = forms.CharField(widget=forms.Textarea)
 
-class ContactForm(forms.ModelForm):
+    def clean(self):
+        cleaned_data = super().clean()
+        name = cleaned_data['name']
+        email = cleaned_data['email']
 
-	name = forms.CharField(max_length=100, required=True,
-		widget=forms.TextInput(attrs={
-			'placeholder': '*Full name..',
-			'class': 'form-control'
-			}))
-	email = forms.EmailField(max_length=254, required=True, 
-		widget=forms.TextInput(attrs={
-			'placeholder': '*Email..',
-			'class': 'form-control'
-			}))
-	message = forms.CharField(max_length=1000, required=True, 
-		widget=forms.Textarea(attrs={
-			'placeholder': '*Message..',
-			'class': 'form-control',
-			'rows': 6,
-			}))
-
-
-	class Meta:
-		model = ContactProfile
-		fields = ('name', 'email', 'message',)
+        if name == '' and email == '':
+            #raise forms.ValidationError("Email or Phone 1 should be field", code='invalid')
+            self.add_error("name", "Name or Email 1 should be field")

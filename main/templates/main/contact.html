@@ -31,39 +31,61 @@ END script blocks
 Start Content
 ================================= -->
 {% block content %}
-<section>
-  <div class="innerPageBannerCol">
-    <div class="container">
-      <div class="row g-4 g-md-3  align-items-center">
-        <div class="col-md-6">
-          <div class="bannerContent">
-            <h1 class="xlTitle pb-md-3">Contact us below</h1>
+<!-- Contact Me
+    ============================================= -->
+    <section id="contact" class="section bg-dark-2">
+      <div class="container px-lg-5">
+        <!-- Heading -->
+        <div class="position-relative d-flex text-center mb-5">
+          <h2 class="text-24 text-white-50 opacity-1 text-uppercase fw-600 w-100 mb-0">Contact</h2>
+          <p class="text-9 text-white fw-600 position-absolute w-100 align-self-center lh-base mb-0">Get in Touch<span class="heading-separator-line border-bottom border-3 border-primary d-block mx-auto"></span> </p>
+        </div>
+        <!-- Heading end-->
+        <div class="row gy-5">
+          <div class="col-md-4 col-xl-3 order-1 order-md-0 text-center text-md-start">
+            <h2 class="mb-3 text-5 text-white text-uppercase">Address</h2>
+            <p class="text-3 text-light mb-4">No 11 Floor, Plot No.22,<br>
+              145 Murphy Ado-Au.<br>
+              Lagos </p>
+            <p class="text-3 text-light mb-1"><span class="text-primary text-4 me-2"><i class="fas fa-phone"></i></span>+234 7033474776</p>
+            <p class="text-3 text-light mb-1"><span class="text-primary text-4 me-2"><i class="fas fa-fax"></i></span>+234 8166387977</p>
+            <p class="text-3 text-light mb-4"><span class="text-primary text-4 me-2"><i class="fas fa-envelope"></i></span>ikeadimpaul@gmail.com</p>
+            <h2 class="mb-3 text-5 text-white text-uppercase">Follow Me</h2>
+            <ul class="social-icons social-icons-muted justify-content-center justify-content-md-start">
+              <li class="social-icons-dribbble"><a data-bs-toggle="tooltip" href="http://www.dribbble.com/harnishdesign/" target="_blank" title="Dribbble"><i class="fab fa-dribbble"></i></a></li>
+              <li class="social-icons-twitter"><a data-bs-toggle="tooltip" href="https://twitter.com/harnishdesign/" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a></li>
+              <li class="social-icons-facebook"><a data-bs-toggle="tooltip" href="http://www.facebook.com/harnishdesign/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+              <li class="social-icons-google"><a data-bs-toggle="tooltip" href="http://www.google.com/" target="_blank" title="Google"><i class="fab fa-google"></i></a></li>
+              <li class="social-icons-github"><a data-bs-toggle="tooltip" href="http://www.github.com/" target="_blank" title="GitHub"><i class="fab fa-github"></i></a></li>
+            </ul>
+          </div>
+          <div class="col-md-8 col-xl-9 order-0 order-md-1">
+            <h2 class="mb-3 text-5 text-white text-uppercase text-center text-md-start">Send us a note</h2>
+			    <form id="contact-form" class="form-dark"  method="POST">
+            {% csrf_token %}
+			    <div class="row g-4">
+                <div class="col-xl-6">
+                    <input name="name" {% if form.is_bound %}value="{{ form.name.value }}"{% endif %} type="text" class="form-control" required="" placeholder="Name">
+                </div>
+                {% for err in form.email.errors %}
+                    <small class="text-danger ml-2">{{ err }}</small><br>
+                {% endfor %}
+                <div class="col-xl-6">
+                    <input name="email" {% if form.is_bound %}value="{{ form.email.value }}"{% endif %} type="email" class="form-control" required="" placeholder="Email">
+                </div>
+				  <div class="col">
+					<textarea name="message" class="form-control" rows="5" required="" placeholder="Tell us more........">{% if form.is_bound %}{{ form.message.value }}{% endif %}</textarea>
+				  </div>
+              </div>
+              <p class="text-center mt-4 mb-0">
+				      <button id="submit-btn" class="btn btn-primary rounded-pill d-inline-flex" type="submit" value="submit">Send Message</button>
+              </p>
+            </form>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="lightBg">
-    <div class="container">
-        <form id="contactForm" method="POST" action="/contact/">
-        {% csrf_token %}
-            <label for="name">Name</label>
-            {{form.name}}
-
-            <label for="email">Email</label>
-            {{form.email}}
-
-            <label for="subject">Message</label>
-            {{form.message}}
-
-            <input class='btn btnPrimary' type="submit" value="Submit">
-        </form>
-    </div>
-  </div>
-</section>
+    </section>
+    <!-- Contact Me end --> 
 <!-- ================================
 End Content
 ================================= -->

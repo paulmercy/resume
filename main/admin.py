@@ -1,5 +1,6 @@
 from django.contrib import admin
 from . models import (
+    ContactMessage,
     Intro,
     About,
     Service,
@@ -7,7 +8,6 @@ from . models import (
     Experience,
     Skill,
     UserProfile,
-    ContactProfile,
     Testimonial,
     Media,
     Portfolio,
@@ -43,9 +43,10 @@ class SkillAdmin(admin.ModelAdmin):
 class UserProfileAdmin(admin.ModelAdmin):
 	list_display = ('id', 'user')
 
-@admin.register(ContactProfile)
-class ContactAdmin(admin.ModelAdmin):
-	list_display = ('id', 'timestamp', 'name',)
+class ContactMessageAdmin(admin.ModelAdmin):
+    list_display = ['name','update_at','status']
+    readonly_fields = ('name','email','message','ip')
+
 
 @admin.register(Testimonial)
 class TestimonialAdmin(admin.ModelAdmin):
@@ -68,3 +69,5 @@ class CertificateAdmin(admin.ModelAdmin):
 class BlogAdmin(admin.ModelAdmin):
     list_display = ('id','name','is_active')
     readonly_fields = ('slug',)
+
+admin.site.register(ContactMessage,ContactMessageAdmin)

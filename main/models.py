@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from ckeditor.fields import RichTextField
-
+from django.forms import ModelForm
+from django.forms import TextInput, Textarea
 
 class Intro(models.Model):
     class Meta:
@@ -88,20 +89,32 @@ class UserProfile(models.Model):
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name}'
 
-
-class ContactProfile(models.Model):
-    
-    class Meta:
-        verbose_name_plural = 'Contact Profiles'
-        verbose_name = 'Contact Profile'
-        ordering = ["timestamp"]
-    timestamp = models.DateTimeField(auto_now_add=True)
-    name = models.CharField(verbose_name="Name",max_length=100)
-    email = models.EmailField(verbose_name="Email")
-    message = models.TextField(verbose_name="Message")
+class ContactMessage(models.Model):
+    STATUS = (
+        ('New', 'New'),
+        ('Read', 'Read'),
+        ('Closed', 'Closed'),
+    )
+    name = models.CharField(blank=True,max_length=20)
+    email = models.CharField(blank=True,max_length=50)
+    message = models.TextField(blank=True,max_length=255)
+    status = models.CharField(max_length=10, choices=STATUS, default='New')
+    ip = models.CharField(blank=True,max_length=20)
+    create_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.name}'
+        return self.name
+
+class ContactForm(ModelForm):
+    class Meta:
+        model = ContactMessage
+        fields = ['name','email','message']
+        widgets = {
+            'name'  : TextInput(attrs={'class': 'input','placeholder':'Name & Surname'}),
+            'email'  : TextInput(attrs={'class': 'input','placeholder':'Email'}),
+            'message'  : Textarea(attrs={'class': 'input','placeholder':'Your Message','rows':'5'}),
+        }
 
 
 class Testimonial(models.Model):
@@ -207,4 +220,3 @@ class Blog(models.Model):
 
     def get_absolute_url(self):
         return f"/blog/{self.slug}"
-# Python Loops

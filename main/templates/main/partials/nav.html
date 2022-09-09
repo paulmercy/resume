@@ -11,9 +11,9 @@ Start Navigation Bar
         <!-- Logo --> 
         <a href="index.html" class="mb-lg-auto mt-lg-4">
             <span class="bg-dark-2 rounded-pill p-2 mb-lg-1 d-none d-lg-inline-block">
-                <img class="img-fluid rounded-pill d-block" src="images/profile.jpg" title="I'm Simone" alt="">
+                <img class="img-fluid rounded-pill d-block" src="{{userprofile.avatar.url}}" title="I'm Simone" alt="">
             </span>
-            <h1 class="text-5 text-white text-center mb-0 d-lg-block">Paul Ikeadim</h1>
+            <h1 class="text-5 text-white text-center mb-0 d-lg-block">{{me.first_name|title}}</h1>
         </a> 
         <!-- Logo End -->
         

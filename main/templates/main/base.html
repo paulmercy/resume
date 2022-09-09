@@ -81,9 +81,8 @@
     <!-- Style Switcher --> 
     <script src="{% static 'js/switcher.min.js' %}"></script> 
     <!-- Custom Script --> 
-    <script src="{% static 'js/theme.js' %}"></script>
+    {% comment %} <script src="{% static 'js/theme.js' %}"></script> {% endcomment %}
     
-    <script id="google-recaptcha-v3" src="../../recaptcha/api.js?render=6LcmyrcZAAAAAIHP9WnJyuxn9vBiiro6WRpITEsQ"></script>
 
     {% block extend_footer %}{%endblock%}
     <!-- ================================
