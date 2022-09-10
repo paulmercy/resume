@@ -75,16 +75,15 @@ class Skill(models.Model):
     def __str__(self):
         return self.name
 
-class UserProfile(models.Model):
+class Profile(models.Model):
 
     class Meta:
-        verbose_name_plural = 'User Profiles'
-        verbose_name = 'User Profile'
+        verbose_name_plural = 'Profiles'
+        verbose_name = 'Profile'
     
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.ImageField(blank=True, null=True, upload_to="avatar")
     title = models.CharField(max_length=200, blank=True, null=True)
-    skills = models.ManyToManyField(Skill, blank=True)
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name}'

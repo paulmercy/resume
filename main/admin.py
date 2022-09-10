@@ -7,7 +7,7 @@ from . models import (
     Education,
     Experience,
     Skill,
-    UserProfile,
+    Profile,
     Testimonial,
     Media,
     Portfolio,
@@ -39,8 +39,8 @@ class ExperienceAdmin(admin.ModelAdmin):
 class SkillAdmin(admin.ModelAdmin):
     list_display = ('id','name','score')
 
-@admin.register(UserProfile)
-class UserProfileAdmin(admin.ModelAdmin):
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
 	list_display = ('id', 'user')
 
 class ContactMessageAdmin(admin.ModelAdmin):

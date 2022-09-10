@@ -299,7 +299,7 @@ var submit = $('#submit-btn'); // submit button
 
 // form submit event
 form.on('submit', function (e) {
-	e.preventDefault(); // prevent default form submit
+	// e.preventDefault(); // prevent default form submit
 
 	if (typeof $('#google-recaptcha-v3').val() != "undefined") {
 		grecaptcha.ready(function () {
@@ -307,7 +307,7 @@ form.on('submit', function (e) {
 			grecaptcha.execute(site_key, {action: 'contact'}).then(function (token) {
 				var gdata = form.serialize() + '&g-recaptcha-response=' + token;
 				$.ajax({
-					url: '',  // form action url
+					url: "{% url 'index' %}",  // form action url
 					type: 'POST', 		  // form submit method get/post
 					dataType: 'json', 	  // request type html/json/xml
 					data: gdata, 		  // serialize form data
@@ -340,7 +340,7 @@ form.on('submit', function (e) {
 		});
 	} else {
 		$.ajax({
-			url: '', // form action url
+			url: "{% url 'index' %}", // form action url
 			type: 'POST', // form submit method get/post
 			dataType: 'json', // request type html/json/xml
 			data: form.serialize(), // serialize form data

@@ -8,7 +8,7 @@
     <title>{% block title %}{%endblock %}</title>
     <meta name="author" content="Personal Profile">
     <link rel="canonical" href="{{request.path}}"/>
-    <link rel="home" href="{% url 'main:home' %}"/>
+    {% comment %} <link rel="home" href="{% url 'main:home' %}"/> {% endcomment %}
     <meta name="description" content="{% block description %}{% endblock %}">
     <meta name="keywords" content="{% block keywords %}{% endblock %}">
 
@@ -81,7 +81,7 @@
     <!-- Style Switcher --> 
     <script src="{% static 'js/switcher.min.js' %}"></script> 
     <!-- Custom Script --> 
-    {% comment %} <script src="{% static 'js/theme.js' %}"></script> {% endcomment %}
+    <script src="{% static 'js/theme.js' %}"></script>
     
 
     {% block extend_footer %}{%endblock%}
