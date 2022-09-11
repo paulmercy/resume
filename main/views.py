@@ -3,22 +3,9 @@ from django.views.generic import View
 from django.contrib import messages
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse_lazy
-from django.http import JsonResponse
-from .models import (
-		ContactMessage,
-		Intro,
-		About,
-		Service,
-		Education,
-		Experience,
-		Skill,
-		Profile,
-		Testimonial,
-		Media,
-		Portfolio,
-		Certificate,
-		Blog
+import random
+from .models import (ContactMessage,Intro,About,Service,Education,Experience,Skill,Profile,ContactInfo,Testimonial,
+		Media,Portfolio,Category,Certificate
 	)
 
 from django.views import generic
@@ -59,9 +46,19 @@ def index(request):
     skills = Skill.objects.all()
     educations = Education.objects.all()
     experiences = Experience.objects.all()
+    contactinfos = ContactInfo.objects.all()
     testimonials = Testimonial.objects.all()
     portfolios = Portfolio.objects.all()
     certificates = Certificate.objects.all()
+    category = []
+    
+    all_category = [portfolio for portfolio in Category.objects.all()]
+    if all_category:
+        for count in range(10):
+            item = random.choice(all_category)
+            if item not in category:
+                category.append(item)
+
     
 
     context = {
@@ -72,37 +69,31 @@ def index(request):
         'skills': skills,
         'educations': educations,
         'experiences': experiences,
+        'contactinfos': contactinfos,
         'testimonials': testimonials,
         'certificates': certificates,
         'portfolios': portfolios,
+        'categories': category,
         'form':form
         
         
     }
     return render(request, 'main/index.html', context)
 
+def category_portfolio_list(request, cat_id):
+    category = Category.objects.get(id=cat_id)
+    data = Portfolio.objects.filter(category=category).order_by('-id')
+    return render(request, 'portfolio.html', {
+        'data': data,
+    })
+    
 class PortfolioView(generic.ListView):
 	model = Portfolio
 	template_name = "main/portfolio.html"
 	paginate_by = 10
 
 	def get_queryset(self):
-		return super().get_queryset().filter(is_active=True)
-
-
+		return super().get_queryset().filter()
 class PortfolioDetailView(generic.DetailView):
 	model = Portfolio
 	template_name = "main/portfolio-detail.html"
-
-class BlogView(generic.ListView):
-	model = Blog
-	template_name = "main/blog.html"
-	paginate_by = 10
-	
-	def get_queryset(self):
-		return super().get_queryset().filter(is_active=True)
-
-
-class BlogDetailView(generic.DetailView):
-	model = Blog
-	template_name = "main/blog-detail.html"

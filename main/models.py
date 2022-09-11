@@ -1,8 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.utils.html import mark_safe
 from django.template.defaultfilters import slugify
 from ckeditor.fields import RichTextField
 from django.forms import ModelForm
+from django.urls import reverse
+from django.contrib.auth.models import User
 from django.forms import TextInput, Textarea
 
 class Intro(models.Model):
@@ -24,8 +26,7 @@ class About(models.Model):
     name = models.CharField(max_length=50, blank=True, null=True)
     title = models.CharField(max_length=50, blank=True, null=True)
     email = models.CharField(max_length=50, blank=True, null=True)
-    phone = models.CharField(max_length=50, blank=True, null=True)
-    address = models.CharField(max_length=20, blank=True, null=True)
+    phone = models.CharField(max_length=16, blank=True, null=True)
     description =RichTextField(blank=True, null=True)
     address = models.CharField(max_length=20, blank=True, null=True)
     cv = models.FileField(blank=True, null=True, upload_to="cv")
@@ -61,14 +62,17 @@ class Experience(models.Model):
     organisation = models.CharField(max_length=100, blank=True, null=True)
     date = models.CharField(max_length=11, blank=True, null=True)
     description = RichTextField(blank=True, null=True)
+    
+    def __str__(self):
+        return self.title
 
 class Skill(models.Model):
     class Meta:
         verbose_name_plural = 'Skills'
         verbose_name = 'Skill'
     
-    name = models.CharField(max_length=20, blank=True, null=True)
-    score = models.IntegerField(default=80, blank=True, null=True)
+    name = models.CharField(max_length=40, blank=True, null=True)
+    score = models.IntegerField(default=60, blank=True, null=True)
     image = models.FileField(blank=True, null=True, upload_to="skills")
     is_key_skill = models.BooleanField(default=False)
     
@@ -80,13 +84,12 @@ class Profile(models.Model):
     class Meta:
         verbose_name_plural = 'Profiles'
         verbose_name = 'Profile'
-    
+        
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.ImageField(blank=True, null=True, upload_to="avatar")
-    title = models.CharField(max_length=200, blank=True, null=True)
+    name = models.CharField(max_length=100, blank=True, null=True)
+    title = models.CharField(max_length=50, blank=True, null=True)
 
-    def __str__(self):
-        return f'{self.user.first_name} {self.user.last_name}'
 
 class ContactMessage(models.Model):
     STATUS = (
@@ -115,6 +118,22 @@ class ContactForm(ModelForm):
             'message'  : Textarea(attrs={'class': 'input','placeholder':'Your Message','rows':'5'}),
         }
 
+class ContactInfo(models.Model):
+    class Meta:
+        verbose_name_plural = 'ContactInfos'
+        verbose_name = 'ContactInfo'
+    address = models.CharField(max_length=100, blank=True, null=True)
+    phone = models.CharField(max_length=16, blank=True, null=True)
+    tel = models.CharField(max_length=16, blank=True, null=True)
+    email = models.EmailField(max_length=50, blank=True, null=True)
+    dribbble = models.URLField(max_length=500, blank=True, null=True)
+    twitter = models.URLField(max_length=500, blank=True, null=True)
+    linkedin = models.URLField(max_length=500, blank=True, null=True)
+    instagram = models.URLField(max_length=500, blank=True, null=True)
+    github = models.URLField(max_length=500, blank=True, null=True)
+    
+    def __str__(self):
+        return self.email
 
 class Testimonial(models.Model):
 
@@ -152,27 +171,48 @@ class Media(models.Model):
     def __str__(self):
         return self.name
 
+
+class Category(models.Model):
+    title=models.CharField(max_length=100)
+    slug = models.CharField(max_length=60, unique=True, blank=True)
+    
+    class Meta:
+        verbose_name_plural='2. Categories'
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        return super().save()
+
+    def get_absolute_url(self, *args, **kwargs):
+        return reverse('category', kwargs={'slug':self.slug})
+
 class Portfolio(models.Model):
 
     class Meta:
-        verbose_name_plural = 'Portfolio Profiles'
+        verbose_name_plural = 'Portfolios'
         verbose_name = 'Portfolio'
-        ordering = ["name"]
-    date = models.DateTimeField(blank=True, null=True)
-    name = models.CharField(max_length=200, blank=True, null=True)
-    description = models.CharField(max_length=500, blank=True, null=True)
-    body = RichTextField(blank=True, null=True)
-    image = models.ImageField(blank=True, null=True, upload_to="portfolio")
+        ordering = ["client"]
+    title = models.CharField(max_length=50, blank=True, null=True)
+    projectdesc = models.TextField(blank=True, null=True)
+    client = models.CharField(max_length=50, blank=True, null=True)
+    industry = models.CharField(max_length=50, blank=True, null=True)
+    technologies = models.CharField(max_length=200, blank=True, null=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    date = models.DateField(blank=True, null=True)
+    image = models.ImageField(blank=True, null=True)
+    projecturl = models.URLField(max_length=500, blank=True, null=True)
     slug = models.SlugField(null=True, blank=True)
-    is_active = models.BooleanField(default=True)
 
     def save(self, *args, **kwargs):
         if not self.id:
-            self.slug = slugify(self.name)
+            self.slug = slugify(self.client)
         super(Portfolio, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.name
+        return self.client
 
     def get_absolute_url(self):
         return f"/portfolio/{self.slug}"
@@ -191,31 +231,3 @@ class Certificate(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class Blog(models.Model):
-
-    class Meta:
-        verbose_name_plural = 'Blog Profiles'
-        verbose_name = 'Blog'
-        ordering = ["timestamp"]
-
-    timestamp = models.DateTimeField(auto_now_add=True)
-    author = models.CharField(max_length=200, blank=True, null=True)
-    name = models.CharField(max_length=200, blank=True, null=True)
-    description = models.CharField(max_length=500, blank=True, null=True)
-    body = RichTextField(blank=True, null=True)
-    slug = models.SlugField(null=True, blank=True)
-    image = models.ImageField(blank=True, null=True, upload_to="blog")
-    is_active = models.BooleanField(default=True)
-
-    def save(self, *args, **kwargs):
-        if not self.id:
-            self.slug = slugify(self.name)
-        super(Blog, self).save(*args, **kwargs)
-
-    def __str__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return f"/blog/{self.slug}"

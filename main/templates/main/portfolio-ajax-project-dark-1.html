@@ -1,6 +1,7 @@
-
+{% comment %} {% extends 'main/base.html' %}
+{% load static %} {% endcomment %}
 <div class="container ajax-container bg-dark-1">
-  {% for portfolio in portfolios %}
+  {% comment %} {% for portfolio in portfolios %} {% endcomment %}
   <h2 class="text-6 font-weight-600 text-center text-white mb-4">Project Title 1</h2>
   <div class="row g-4">
     <div class="col-sm-7">
@@ -34,5 +35,5 @@
       </div>
     </div>
   </div>
-
+  {% comment %} {% endfor %} {% endcomment %}
 </div>

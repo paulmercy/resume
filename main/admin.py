@@ -8,20 +8,21 @@ from . models import (
     Experience,
     Skill,
     Profile,
+    ContactInfo,
     Testimonial,
     Media,
     Portfolio,
+    Category,
     Certificate,
-    Blog
     )
 
 @admin.register(Intro)
 class IntroAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title')
+    list_display = ('id', 'title', 'address')
 
 @admin.register(About)
 class AboutAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name')
+    list_display = ('id', 'name', 'title')
 
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
@@ -29,11 +30,11 @@ class ServiceAdmin(admin.ModelAdmin):
 
 @admin.register(Education)
 class EducationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'institution')
+    list_display = ('id', 'institution', 'course')
 
 @admin.register(Experience)
 class ExperienceAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title')
+    list_display = ('id', 'title', 'organisation')
 
 @admin.register(Skill)
 class SkillAdmin(admin.ModelAdmin):
@@ -41,16 +42,19 @@ class SkillAdmin(admin.ModelAdmin):
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-	list_display = ('id', 'user')
+	list_display = ('id', 'name', 'title')
 
 class ContactMessageAdmin(admin.ModelAdmin):
     list_display = ['name','update_at','status']
     readonly_fields = ('name','email','message','ip')
 
+@admin.register(ContactInfo)
+class ContactInfoAdmin(admin.ModelAdmin):
+	list_display = ('id', 'email', 'phone')
 
 @admin.register(Testimonial)
 class TestimonialAdmin(admin.ModelAdmin):
-    list_display = ('id','name','is_active')
+    list_display = ('id','name','role', 'is_active')
 
 @admin.register(Media)
 class MediaAdmin(admin.ModelAdmin):
@@ -58,16 +62,16 @@ class MediaAdmin(admin.ModelAdmin):
 
 @admin.register(Portfolio)
 class PortfolioAdmin(admin.ModelAdmin):
-    list_display = ('id','name','is_active')
+    list_display = ('id','client')
     readonly_fields = ('slug',)
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+	list_display=('id','title')
     
 @admin.register(Certificate)
 class CertificateAdmin(admin.ModelAdmin):
     list_display = ('id','name')
 
-@admin.register(Blog)
-class BlogAdmin(admin.ModelAdmin):
-    list_display = ('id','name','is_active')
-    readonly_fields = ('slug',)
 
 admin.site.register(ContactMessage,ContactMessageAdmin)
