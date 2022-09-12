@@ -10,7 +10,7 @@ from . models import (
     Profile,
     ContactInfo,
     Testimonial,
-    Media,
+    Images,
     Portfolio,
     Category,
     Certificate,
@@ -56,13 +56,17 @@ class ContactInfoAdmin(admin.ModelAdmin):
 class TestimonialAdmin(admin.ModelAdmin):
     list_display = ('id','name','role', 'is_active')
 
-@admin.register(Media)
-class MediaAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name')
+@admin.register(Images)
+class ImagesAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title')
 
+class PortfolioImageInline(admin.TabularInline):
+	model = Images
+	extra = 1
 @admin.register(Portfolio)
 class PortfolioAdmin(admin.ModelAdmin):
     list_display = ('id','client')
+    inlines = [PortfolioImageInline]
     readonly_fields = ('slug',)
 
 @admin.register(Category)

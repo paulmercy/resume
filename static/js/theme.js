@@ -1,3 +1,8 @@
+/*
+================================================================
+* Description:   Main Custom Script File
+================================================================
+*/
 
 (function ($) {
 	"use strict";
@@ -34,7 +39,6 @@ $(window).on('scroll',function() {
 	}
 });
 
-
 // Sections Scroll
 if($("body").hasClass("side-header")){
 $('.smooth-scroll').on('click', function() {
@@ -66,7 +70,7 @@ $('.navbar-side-open .collapse, .navbar-overlay .collapse').on('show.bs.collapse
 }),
 $('.navbar-side-open [data-bs-toggle="collapse"], .navbar-overlay [data-bs-toggle="collapse"]').on('click', function(e) {
    e.preventDefault();
-   $($(this).data('target')).toggleClass('show');
+   $($(this).data('bs-target')).toggleClass('show');
 })
 
 /*---------------------------------
@@ -191,11 +195,9 @@ $(this).magnificPopup({
 });
 });
 
-
 /*------------------------------------
     Isotope Portfolio Filter
 -------------------------------------- */
-
 $(window).on('load', function () {
 $(".portfolio-filter").each(function() {
     var e = $(this);
@@ -243,7 +245,6 @@ $(".counter").each(function () {
 /*------------------------------------
     Typed
 -------------------------------------- */
-
 $(".typed").each(function() {
 var typed = new Typed('.typed', {
     stringsElement: '.typed-strings',
@@ -254,7 +255,6 @@ var typed = new Typed('.typed', {
 });
 });
 
-
 /*------------------------------------
     YTPlayer YouTube Background
 -------------------------------------- */
@@ -262,7 +262,6 @@ var typed = new Typed('.typed', {
 $(".player").each(function () {
     $(this).mb_YTPlayer();
 });
-
 
 /*------------------------
    tooltips
@@ -272,24 +271,22 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
   return new bootstrap.Tooltip(tooltipTriggerEl)
 })
 
-
 /*------------------------
    Scroll to top
 -------------------------- */
 $(function () {
-		$(window).on('scroll', function(){
-			if ($(this).scrollTop() > 400) {
-				$('#back-to-top').fadeIn();
-			} else {
-				$('#back-to-top').fadeOut();
-			}
-		});
-		});
-$('#back-to-top').on("click", function() {
-	$('html, body').animate({scrollTop:0}, 'slow');
-	return false;
+	$(window).on('scroll', function(){
+		if ($(this).scrollTop() > 400) {
+			$('#back-to-top').fadeIn();
+		} else {
+			$('#back-to-top').fadeOut();
+		}
+	});
+	$('#back-to-top').on("click", function() {
+		$('html, body').animate({scrollTop:0}, 'slow');
+		return false;
+	});
 });
-
 
 /*------------------------
    Contact Form
@@ -307,7 +304,7 @@ form.on('submit', function (e) {
 			grecaptcha.execute(site_key, {action: 'contact'}).then(function (token) {
 				var gdata = form.serialize() + '&g-recaptcha-response=' + token;
 				$.ajax({
-					url: "{% url 'index' %}",  // form action url
+					url: "{% url 'index'%}",  // form action url
 					type: 'POST', 		  // form submit method get/post
 					dataType: 'json', 	  // request type html/json/xml
 					data: gdata, 		  // serialize form data
@@ -340,7 +337,7 @@ form.on('submit', function (e) {
 		});
 	} else {
 		$.ajax({
-			url: "{% url 'index' %}", // form action url
+			url: "{% url 'index'%}", // form action url
 			type: 'POST', // form submit method get/post
 			dataType: 'json', // request type html/json/xml
 			data: form.serialize(), // serialize form data

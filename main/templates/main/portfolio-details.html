@@ -1,0 +1,116 @@
+{% load static %}
+
+<!-- ================================
+Start SEO blocks
+================================= -->
+{% block title %}{% endblock %}
+{% block decription %}{% endblock %}
+{% block keywords %}{% endblock %}
+<!-- ================================
+END SEO blocks
+================================= -->
+
+<!-- ================================
+Start CSS blocks
+================================= -->
+{% block extend_header %}{% endblock %}
+<!-- ================================
+END CSS blocks
+================================= -->
+
+<!-- ================================
+Start script blocks
+================================= -->
+{% block extend_footer %}{% endblock %}
+<!-- ================================
+END script blocks
+================================= -->
+
+<!-- ================================
+Start Content
+================================= -->
+{% block content %}
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/stylesheet.css' %}">
+
+<body>
+
+
+  <!-- ======= Header ======= -->
+  <section id="about" class="section bg-dark-1">
+    <div class="container px-lg-5"> 
+      <!-- Heading -->
+      <div class="position-relative d-flex text-center mb-5">
+        <h2 class="text-24 text-muted opacity-1 text-uppercase fw-600 w-100 mb-0">Details</h2>
+        <p class="text-9 text-white fw-600 position-absolute w-100 align-self-center lh-base mb-0">{{portfolios.title}}<span class="heading-separator-line border-bottom border-3 border-primary d-block mx-auto"></span> </p>
+      </div>
+      <!-- Heading end-->
+
+  <main id="main">
+
+    <!-- ======= Portfolio Details Section ======= -->
+    <section id="portfolio-details" class="portfolio-details">
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-8">
+            <div class="portfolio-details-slider swiper">
+              <div class="swiper-pagination"></div>
+              <div class="swiper-wrapper align-items-center">
+                <div class="swiper-slide">
+                  <img src="{{portfolios.image.url}}" alt="">
+                </div>
+                {%  for image  in images %}
+                <div class="swiper-slide">
+                  <img src="{{image.image.url}}" alt="">
+                </div>
+                {%  endfor %}
+              </div>
+             
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="portfolio-info">
+              <h3>Project information</h3>
+              <ul>
+                <li><strong>Category</strong>: {{portfolios.category}}</li>
+                <li><strong>Client</strong>: {{portfolios.client}}</li>
+                <li><strong>Project date</strong>: {{portfolios.date}}</li>
+                <li><strong>Project URL</strong>: <a href="{{portfolios.projecturl}}">{{portfolios.projecturl}}</a></li>
+              </ul>
+            </div>
+            <div class="portfolio-description">
+              <h5 class="portfolio-description">Description:</h5>
+              <p>
+                {{portfolios.projectdesc|safe}}
+              </p>
+              <a href="#" class="btn btn-primary rounded-pill">Download </a> </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Portfolio Details Section -->
+
+  </main><!-- End #main -->
+
+  {% include 'main/partials/footer.html' %}
+
+  <script src="{% static 'vendor/purecounter/purecounter_vanilla.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/typed/typed.min.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'js/portfolio.js' %}"></script>
+{%endblock%}

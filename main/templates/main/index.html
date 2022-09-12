@@ -230,25 +230,25 @@ Start Content
     <section id="work" class="portfolio-mf sect-pt4 route">
       <div class="container">
         <div class="row">
-          {% for portfolio in portfolios%}
+          {% for p in portfolios %}
           <div class="col-md-4">
             <div class="work-box">
-              <a href="{{portfolio.image.url}}" data-gallery="portfolioGallery" class="portfolio-lightbox">
+              <a href="{{p.image.url}}" data-gallery="portfolioGallery" class="portfolio-lightbox">
                 <div class="work-img">
-                  <img src="{{portfolio.image.url}}" alt="" class="img-fluid">
+                  <img src="{{p.image.url}}" alt="" class="img-fluid">
                 </div>
               </a>
               <div class="work-content">
                 <div class="row">
                   <div class="col-sm-8">
-                    <h2 class="w-title">{{portfolio.title}}</h2>
+                    <h2 class="w-title">{{p.title}}</h2>
                     <div class="w-more">
-                      <span class="w-ctegory">{{portfolio.category}}</span> / <span class="w-date">{{portfolio.date}}</span>
+                      <span class="w-ctegory">{{p.category}}</span> / <span class="w-date">{{p.date}}</span>
                     </div>
                   </div>
                   <div class="col-sm-4">
                     <div class="w-like">
-                      <a href="portfolio-details.html"> <span class="bi bi-box-arrow-in-right"></span></a>
+                      <a href="{% url 'main:portfolio_detail' slug=p.slug %}"> <span class="bi bi-box-arrow-in-right"></span></a>
                     </div>
                   </div>
                 </div>
@@ -323,14 +323,18 @@ Start Content
           <div class="col-md-8 col-xl-9 order-0 order-md-1">
             <h2 class="mb-3 text-5 text-white text-uppercase text-center text-md-start">Send us a note</h2>
 			    <form id="contact-form" class="form-dark"  method="POST">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{message.tags}}" role="alert">
+              {{ message }}
+          </div>
+          {% endfor %}
+          {% endif %}
             {% csrf_token %}
 			    <div class="row g-4">
                 <div class="col-xl-6">
                     <input id="name" name="name" {% if form.is_bound %}value="{{ form.name.value }}"{% endif %} type="text" class="form-control" required="" placeholder="Name">
                 </div>
-                {% for err in form.email.errors %}
-                    <small class="text-danger ml-2">{{ err }}</small><br>
-                {% endfor %}
                 <div class="col-xl-6">
                     <input id="email" name="email" {% if form.is_bound %}value="{{ form.email.value }}"{% endif %} type="email" class="form-control" required="" placeholder="Email">
                 </div>

@@ -151,27 +151,6 @@ class Testimonial(models.Model):
     def __str__(self):
         return self.name
 
-
-class Media(models.Model):
-
-    class Meta:
-        verbose_name_plural = 'Media Files'
-        verbose_name = 'Media'
-        ordering = ["name"]
-	
-    image = models.ImageField(blank=True, null=True, upload_to="media")
-    url = models.URLField(blank=True, null=True)
-    name = models.CharField(max_length=200, blank=True, null=True)
-    is_image = models.BooleanField(default=True)
-
-    def save(self, *args, **kwargs):
-        if self.url:
-            self.is_image = False
-        super(Media, self).save(*args, **kwargs)
-    def __str__(self):
-        return self.name
-
-
 class Category(models.Model):
     title=models.CharField(max_length=100)
     slug = models.CharField(max_length=60, unique=True, blank=True)
@@ -190,7 +169,6 @@ class Category(models.Model):
         return reverse('category', kwargs={'slug':self.slug})
 
 class Portfolio(models.Model):
-
     class Meta:
         verbose_name_plural = 'Portfolios'
         verbose_name = 'Portfolio'
@@ -206,16 +184,20 @@ class Portfolio(models.Model):
     projecturl = models.URLField(max_length=500, blank=True, null=True)
     slug = models.SlugField(null=True, blank=True)
 
-    def save(self, *args, **kwargs):
-        if not self.id:
-            self.slug = slugify(self.client)
-        super(Portfolio, self).save(*args, **kwargs)
+    def get_absolute_url(self):
+        return reverse("portfolio_detail", kwargs={'slug': self.slug})
+
 
     def __str__(self):
-        return self.client
+        return self.title
+    
+class Images(models.Model):
+	item = models.ForeignKey(Portfolio, on_delete=models.CASCADE)
+	title = models.CharField(max_length=150, blank=True, null=True)
+	image = models.ImageField(blank=True, upload_to='images/')
 
-    def get_absolute_url(self):
-        return f"/portfolio/{self.slug}"
+	def __str__(self):
+		return self.title
 
 class Certificate(models.Model):
 

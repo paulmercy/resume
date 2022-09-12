@@ -4,8 +4,7 @@ from django.contrib import messages
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, HttpResponseRedirect
 import random
-from .models import (ContactMessage,Intro,About,Service,Education,Experience,Skill,Profile,ContactInfo,Testimonial,
-		Media,Portfolio,Category,Certificate
+from .models import (ContactMessage, Images,Intro,About,Service,Education,Experience,Skill,Profile,ContactInfo,Testimonial,Portfolio,Category,Certificate
 	)
 
 from django.views import generic
@@ -48,18 +47,9 @@ def index(request):
     experiences = Experience.objects.all()
     contactinfos = ContactInfo.objects.all()
     testimonials = Testimonial.objects.all()
-    portfolios = Portfolio.objects.all()
+    portfolios = Portfolio.objects.filter()
     certificates = Certificate.objects.all()
     category = []
-    
-    all_category = [portfolio for portfolio in Category.objects.all()]
-    if all_category:
-        for count in range(10):
-            item = random.choice(all_category)
-            if item not in category:
-                category.append(item)
-
-    
 
     context = {
         'intros': intros,
@@ -74,26 +64,19 @@ def index(request):
         'certificates': certificates,
         'portfolios': portfolios,
         'categories': category,
-        'form':form
-        
-        
+        'form':form  
     }
     return render(request, 'main/index.html', context)
 
-def category_portfolio_list(request, cat_id):
-    category = Category.objects.get(id=cat_id)
-    data = Portfolio.objects.filter(category=category).order_by('-id')
-    return render(request, 'portfolio.html', {
-        'data': data,
-    })
-    
-class PortfolioView(generic.ListView):
-	model = Portfolio
-	template_name = "main/portfolio.html"
-	paginate_by = 10
 
-	def get_queryset(self):
-		return super().get_queryset().filter()
-class PortfolioDetailView(generic.DetailView):
-	model = Portfolio
-	template_name = "main/portfolio-detail.html"
+def portfolio_detail(request,  slug):
+    portfolios = Portfolio.objects.get(slug=slug)
+    category = Category.objects.all()
+    image = Images.objects.filter(item__slug=slug)
+
+    context = {
+        "portfolios": portfolios,
+        "category": category,
+        "images": image,
+          }
+    return render(request, "main/portfolio-details.html", context)
