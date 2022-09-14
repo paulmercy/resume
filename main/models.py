@@ -9,7 +9,7 @@ from django.forms import TextInput, Textarea
 
 class Intro(models.Model):
     class Meta:
-        verbose_name_plural = 'Intros'
+        verbose_name_plural = '2. Intros'
         verbose_name = 'Intro'
     greet = models.CharField(max_length=50, blank=True, null=True)
     title = models.CharField(max_length=50, blank=True, null=True)
@@ -21,7 +21,7 @@ class Intro(models.Model):
 
 class About(models.Model):
     class Meta:
-        verbose_name_plural = 'Abouts'
+        verbose_name_plural = '3. Abouts'
         verbose_name = 'About'
     name = models.CharField(max_length=50, blank=True, null=True)
     title = models.CharField(max_length=50, blank=True, null=True)
@@ -34,7 +34,7 @@ class About(models.Model):
 
 class Service(models.Model):
     class Meta:
-        verbose_name_plural = 'Services'
+        verbose_name_plural = '4. Services'
         verbose_name = 'Service'
     
     title = models.CharField(max_length=20, blank=True, null=True)
@@ -47,7 +47,7 @@ class Service(models.Model):
 
 class Education(models.Model):
     class Meta:
-        verbose_name_plural = 'Educations'
+        verbose_name_plural = '6. Educations'
         verbose_name = 'Education'
     institution = models.CharField(max_length=50, blank=True, null=True)
     course = models.CharField(max_length=50, blank=True, null=True)
@@ -56,7 +56,7 @@ class Education(models.Model):
 
 class Experience(models.Model):
     class Meta:
-        verbose_name_plural = 'Experiences'
+        verbose_name_plural = '7. Experiences'
         verbose_name = 'Experience'
     title = models.CharField(max_length=50, blank=True, null=True)
     organisation = models.CharField(max_length=100, blank=True, null=True)
@@ -68,7 +68,7 @@ class Experience(models.Model):
 
 class Skill(models.Model):
     class Meta:
-        verbose_name_plural = 'Skills'
+        verbose_name_plural = '8. Skills'
         verbose_name = 'Skill'
     
     name = models.CharField(max_length=40, blank=True, null=True)
@@ -82,11 +82,11 @@ class Skill(models.Model):
 class Profile(models.Model):
 
     class Meta:
-        verbose_name_plural = 'Profiles'
+        verbose_name_plural = '1. Profiles'
         verbose_name = 'Profile'
         
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.ImageField(blank=True, null=True, upload_to="avatar")
+    avatar = models.ImageField(upload_to='profile_pics/',blank=True, null=True, default='profile_pics/default.png')
     name = models.CharField(max_length=100, blank=True, null=True)
     title = models.CharField(max_length=50, blank=True, null=True)
 
@@ -120,7 +120,7 @@ class ContactForm(ModelForm):
 
 class ContactInfo(models.Model):
     class Meta:
-        verbose_name_plural = 'ContactInfos'
+        verbose_name_plural = '9. ContactInfos'
         verbose_name = 'ContactInfo'
     address = models.CharField(max_length=100, blank=True, null=True)
     phone = models.CharField(max_length=16, blank=True, null=True)
@@ -138,7 +138,7 @@ class ContactInfo(models.Model):
 class Testimonial(models.Model):
 
     class Meta:
-        verbose_name_plural = 'Testimonials'
+        verbose_name_plural = '10. Testimonials'
         verbose_name = 'Testimonial'
         ordering = ["name"]
 
@@ -156,7 +156,7 @@ class Category(models.Model):
     slug = models.CharField(max_length=60, unique=True, blank=True)
     
     class Meta:
-        verbose_name_plural='2. Categories'
+        verbose_name_plural='11. Portfolios Categories'
 
     def __str__(self):
         return self.title
@@ -170,7 +170,7 @@ class Category(models.Model):
 
 class Portfolio(models.Model):
     class Meta:
-        verbose_name_plural = 'Portfolios'
+        verbose_name_plural = '12. Portfolios'
         verbose_name = 'Portfolio'
         ordering = ["client"]
     title = models.CharField(max_length=50, blank=True, null=True)
@@ -202,7 +202,7 @@ class Images(models.Model):
 class Certificate(models.Model):
 
     class Meta:
-        verbose_name_plural = 'Certificates'
+        verbose_name_plural = '12. Certificates'
         verbose_name = 'Certificate'
 
     date = models.DateTimeField(blank=True, null=True)

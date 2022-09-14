@@ -10,7 +10,7 @@ Start Navigation Bar
         
         <!-- Logo --> 
         {% for profile in profiles %}
-        <a href="index.html" class="mb-lg-auto mt-lg-4">
+        <a href="{% url 'index' %}" class="mb-lg-auto mt-lg-4">
             <span class="bg-dark-2 rounded-pill p-2 mb-lg-1 d-none d-lg-inline-block">
                 <img class="img-fluid rounded-pill d-block" src="{{profile.avatar.url}}" title="{{profile.name}}" alt="">
             </span>
