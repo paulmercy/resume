@@ -20,12 +20,11 @@ jobs:
           name: Running tests
           command: |
             . venv/bin/activate
-            python3 manage.py runserver
+            python3 manage.py test
             echo " ------- login in to hub--------"
             docker login -u paulmeric -p $DOCKERPASS
             echo "-------------- Pushing images to dockerhub-------"
             docker push paulmeric/resume:v1
-           
       - store_artifacts:
           path: test-reports/
           destination: python_app
