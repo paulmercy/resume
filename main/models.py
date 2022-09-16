@@ -138,7 +138,7 @@ class ContactInfo(models.Model):
 class Testimonial(models.Model):
 
     class Meta:
-        verbose_name_plural = '10. Testimonials'
+        verbose_name_plural = 'Testimonials'
         verbose_name = 'Testimonial'
         ordering = ["name"]
 
@@ -156,7 +156,7 @@ class Category(models.Model):
     slug = models.CharField(max_length=60, unique=True, blank=True)
     
     class Meta:
-        verbose_name_plural='11. Portfolios Categories'
+        verbose_name_plural='Portfolios Categories'
 
     def __str__(self):
         return self.title
@@ -170,7 +170,7 @@ class Category(models.Model):
 
 class Portfolio(models.Model):
     class Meta:
-        verbose_name_plural = '12. Portfolios'
+        verbose_name_plural = 'Portfolios'
         verbose_name = 'Portfolio'
         ordering = ["client"]
     title = models.CharField(max_length=50, blank=True, null=True)
@@ -192,17 +192,20 @@ class Portfolio(models.Model):
         return self.title
     
 class Images(models.Model):
-	item = models.ForeignKey(Portfolio, on_delete=models.CASCADE)
-	title = models.CharField(max_length=150, blank=True, null=True)
-	image = models.ImageField(blank=True, upload_to='images/')
-
-	def __str__(self):
-		return self.title
+    class Meta:
+        verbose_name_plural = 'Images'
+        verbose_name = 'Image'
+    item = models.ForeignKey(Portfolio, on_delete=models.CASCADE)
+    title = models.CharField(max_length=150, blank=True, null=True)
+    image = models.ImageField(blank=True, upload_to='images/')
+        
+    def __str__(self):
+        return self.title
 
 class Certificate(models.Model):
 
     class Meta:
-        verbose_name_plural = '12. Certificates'
+        verbose_name_plural = 'Certificates'
         verbose_name = 'Certificate'
 
     date = models.DateTimeField(blank=True, null=True)

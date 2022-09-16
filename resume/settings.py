@@ -157,7 +157,8 @@ CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 JAZZMIN_SETTINGS = {
     "site_title": "portfolio",
     "site_header": "your_site_header",
-    "site_brand": "your_site_brand",
+    "site_brand": "Persoinal Portfolio",
+    "site_footer": "your_site_footer",
     "site_icon": "images/favicon.png",
     # Add your own branding here
     "site_logo": None,
@@ -207,7 +208,7 @@ JAZZMIN_SETTINGS = {
     "custom_css": "css/bootstrap-dark.css",
     "custom_js": None,
     # Whether to show the UI customizer on the sidebar
-    "show_ui_builder": False,
+    "show_ui_builder": True,
     ###############
     # Change view #
     ###############
