@@ -1,6 +1,5 @@
 version: 2.1
 jobs:
-  lint-app:
   build:
     docker:
       - image: circleci/python:3.9
@@ -13,7 +12,7 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
-            
+
             echo "--------- The images is Building ------------"
 
             docker build -t resume ./resume
@@ -28,10 +27,3 @@ jobs:
             echo "-------------- Pushing images to dockerhub-------"
 
             docker push paulmeric/resume:v1
-
-workflows:
-  default:
-    jobs:
-      - lint-app
-      - build-docker:
-          requires: [lint-app]
