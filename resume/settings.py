@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ckeditor',
     'main',
-    'environ'
+    'environ',
+    'storages'
 ]
 
 MIDDLEWARE = [
@@ -76,6 +77,12 @@ WSGI_APPLICATION = 'resume.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -90,13 +97,13 @@ DATABASES = {
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Live Email
-EMAIL_BACKEND = 'django_ses.SESBackend'
-AWS_SES_REGION_NAME = env('AWS_SES_REGION_NAME'),
-AWS_SES_REGION_ENDPOINT = env('AWS_SES_REGION_ENDPOINT'),
-AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID'),
-AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY'),
 
-
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = env('EMAIL_HOST'),
+EMAIL_USE_TLS = env('EMAIL_HOST'),
+EMAIL_PORT = env('EMAIL_PORT'),
+EMAIL_HOST_USER = env('EMAIL_HOST_USER'),
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 
 DEFAULT_FROM_EMAIL = "admin@paulmeric.com"
 
@@ -133,6 +140,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
+
+
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
