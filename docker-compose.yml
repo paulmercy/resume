@@ -5,9 +5,9 @@ services:
     image: postgres:14
     restart: always
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - pg_data:/var/lib/postgresql/data/
     ports:
-      - '5439:5432'
+      - '5440:5432'
     env_file: resume/.env
 
   backend:
@@ -23,4 +23,4 @@ services:
       - db
 
 volumes:
-  postgres_data: 
+  pg_data: 
