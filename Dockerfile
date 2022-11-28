@@ -1,26 +1,19 @@
-ARG PYTHON_VERSION=3.7
+FROM python:3.9-slim-bullseye
 
-FROM python:${PYTHON_VERSION}
+ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE 1
 
-RUN apt-get update && apt-get install -y \
-    python3-pip \
-    python3-venv \
-    python3-dev \
-    python3-setuptools \
-    python3-wheel
-
-RUN mkdir -p /app
 WORKDIR /app
 
-COPY requirements.txt .
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt /app/requirements.txt
+
 RUN pip install -r requirements.txt
 
-COPY . .
+COPY . /app/
 
-RUN python manage.py collectstatic --noinput
-
-
-EXPOSE 8080
-
-# replace APP_NAME with module name
-CMD ["gunicorn", "--bind", ":8080", "--workers", "2", "demo.wsgi"]
+CMD python manage.py runserver 0.0.0.0:8000
