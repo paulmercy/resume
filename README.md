@@ -1,4 +1,4 @@
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/paulmercy/resume/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/paulmercy/resume/tree/master)
+
 # Personal Portfolio Django
 To run locally, do the usual:
 

@@ -1,0 +1,15 @@
+command = '/home/paulmeric/.local/bin/gunicorn'
+pythonpath = '/home/paulmeric/Documents/resume-env/resume'
+bind = '0.0.0.0:8000'
+workers = 3
+user = 'paulmeric'
+limit_request_fields = 32000
+limit_request_field_size = 0
+raw_env = 'DJANGO_SETTINGS_MODULE=resume.settings'
+reload = True
+name = 'resume'
+loglevel = 'debug'
+errorlog = '/home/paulmeric/Documents/resume-env/logs/gunicorn-error.log'
+accesslog = '/home/paulmeric/Documents/resume-env/logs/gunicorn-access.log'
+capture_output = True
+timeout = 120

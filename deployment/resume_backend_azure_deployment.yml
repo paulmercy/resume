@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: resume-backend
-        image: nginx:latest
+        image: acrworkflow1672175665995.azurecr.io/image-workflow-1672175665995
         # imagePullPolicy: Always
         ports:
         - containerPort: 80
@@ -28,11 +28,11 @@ kind: Service
 metadata:
   name: resume-service
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
   - protocol: TCP
     port: 80
     targetPort: 80
-    nodePort: 31000
   selector:
     app: resume-backend
+    

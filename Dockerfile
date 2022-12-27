@@ -18,4 +18,6 @@ COPY . /app/
 
 # CMD python manage.py runserver 0.0.0.0:8000
 
-CMD gunicorn resume.wsgi:application --bind 0.0.0.0:8000
+# CMD gunicorn resume.wsgi:application --bind 0.0.0.0:8000
+
+CMD gunicorn -c conf/gunicorn_config.py resume.wsgi
