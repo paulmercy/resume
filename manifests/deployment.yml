@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "portfoliocluster-e308"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "portfoliocluster-e308"
+  template:
+    metadata:
+      labels:
+        app: "portfoliocluster-e308"
+    spec:
+      containers:
+        - name: "portfoliocluster-e308"
+          image: "acrworkflow1672177113796.azurecr.io/portfoliocluster"
+          ports:
+          - containerPort: 80
