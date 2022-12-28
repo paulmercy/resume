@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: resume-backend
-        image: paulmeric/resume-backend:v3
+        image: paulmeric/resume-backend
         # imagePullPolicy: Always
         ports:
         - containerPort: 80
