@@ -1,0 +1,50 @@
+on: [push]
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    
+    - uses: azure/docker-login@v1
+      with:
+        login-server: acrworkflow1672177113796.azurecr.io
+        username: ${{ secrets.acr_acrworkflow1672177113796_username }}
+        password: ${{ secrets.acr_acrworkflow1672177113796_password }}
+    
+    - name: Build and push image to ACR
+      id: build-image
+      run: |
+        docker build "$GITHUB_WORKSPACE/" -f  "Dockerfile" -t acrworkflow1672177113796.azurecr.io/portfoliocluster:${{ github.sha }} --label dockerfile-path=Dockerfile
+        docker push acrworkflow1672177113796.azurecr.io/portfoliocluster:${{ github.sha }}
+    
+    - uses: azure/k8s-set-context@v1
+      with:
+         kubeconfig: ${{ secrets.aks_portfoliocluster_kubeConfig }}
+      id: login
+    
+    - name: Create namespace
+      run: |
+        namespacePresent=`kubectl get namespace | grep calico-system | wc -l`
+        if [ $namespacePresent -eq 0 ]
+        then
+            echo `kubectl create namespace calico-system`
+        fi
+
+    - uses: azure/k8s-create-secret@v1
+      with:
+        namespace: calico-system
+        container-registry-url: acrworkflow1672177113796.azurecr.io
+        container-registry-username: ${{ secrets.acr_acrworkflow1672177113796_username }}
+        container-registry-password: ${{ secrets.acr_acrworkflow1672177113796_password }}
+        secret-name: portfoliocludockerauth
+       
+    - uses: azure/k8s-deploy@v1.2
+      with:
+        namespace: calico-system
+        manifests: |
+          manifests/deployment.yml
+          manifests/service.yml
+        images: |
+          acrworkflow1672177113796.azurecr.io/portfoliocluster:${{ github.sha }}
+        imagepullsecrets: |
+          portfoliocludockerauth
