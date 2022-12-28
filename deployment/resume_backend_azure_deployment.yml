@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: resume-backend
-        image: acrworkflow1672175665995.azurecr.io/image-workflow-1672175665995
+        image: paulmeric/resume-backend:v3
         # imagePullPolicy: Always
         ports:
         - containerPort: 80
