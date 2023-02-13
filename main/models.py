@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils.html import mark_safe
 from django.template.defaultfilters import slugify
-from ckeditor.fields import RichTextField
 from django.forms import ModelForm
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -27,20 +26,19 @@ class About(models.Model):
     title = models.CharField(max_length=50, blank=True, null=True)
     email = models.CharField(max_length=50, blank=True, null=True)
     phone = models.CharField(max_length=16, blank=True, null=True)
-    description =RichTextField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
     address = models.CharField(max_length=20, blank=True, null=True)
     cv = models.FileField(blank=True, null=True, upload_to="cv")
     
 
-class Service(models.Model):
+class Project(models.Model):
     class Meta:
-        verbose_name_plural = '4. Services'
-        verbose_name = 'Service'
+        verbose_name_plural = '4. Projects'
+        verbose_name = 'Project'
     
-    title = models.CharField(max_length=20, blank=True, null=True)
-    desc = RichTextField(blank=True, null=True)
-    thumbnail = models.ImageField(blank=True, null=True, upload_to="testimonials")
-    is_key_skill = models.BooleanField(default=False)
+    title = models.CharField(max_length=100, blank=True, null=True)
+    desc = models.TextField(blank=True, null=True)
+    thumbnail = models.ImageField(blank=True, null=True, upload_to="Project")
     
     def __str__(self):
         return self.title
@@ -52,16 +50,16 @@ class Education(models.Model):
     institution = models.CharField(max_length=50, blank=True, null=True)
     course = models.CharField(max_length=50, blank=True, null=True)
     date = models.CharField(max_length=11, blank=True, null=True)
-    description = RichTextField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
 
 class Experience(models.Model):
     class Meta:
         verbose_name_plural = '7. Experiences'
         verbose_name = 'Experience'
-    title = models.CharField(max_length=50, blank=True, null=True)
+    title = models.CharField(max_length=80, blank=True, null=True)
     organisation = models.CharField(max_length=100, blank=True, null=True)
     date = models.CharField(max_length=11, blank=True, null=True)
-    description = RichTextField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
     
     def __str__(self):
         return self.title
@@ -71,9 +69,8 @@ class Skill(models.Model):
         verbose_name_plural = '8. Skills'
         verbose_name = 'Skill'
     
-    name = models.CharField(max_length=40, blank=True, null=True)
+    name = models.CharField(max_length=80, blank=True, null=True)
     score = models.IntegerField(default=60, blank=True, null=True)
-    image = models.FileField(blank=True, null=True, upload_to="skills")
     is_key_skill = models.BooleanField(default=False)
     
     def __str__(self):

@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, HttpResponseRedirect
 import random
-from .models import (ContactMessage, Images,Intro,About,Service,Education,Experience,Skill,Profile,ContactInfo,Testimonial,Portfolio,Category,Certificate
+from .models import (ContactMessage, Images,Intro,About,Project,Education,Experience,Skill,Profile,ContactInfo,Testimonial,Portfolio,Category,Certificate
 	)
 
 from django.views import generic
@@ -41,7 +41,7 @@ def index(request):
     intros = Intro.objects.filter()
     abouts = About.objects.filter()
     profiles = Profile.objects.filter()
-    services = Service.objects.filter()
+    projects = Project.objects.filter()
     skills = Skill.objects.all()
     educations = Education.objects.all()
     experiences = Experience.objects.all()
@@ -55,7 +55,7 @@ def index(request):
         'intros': intros,
         'abouts': abouts,
         'profiles': profiles,
-        'services': services,
+        'projects': projects,
         'skills': skills,
         'educations': educations,
         'experiences': experiences,

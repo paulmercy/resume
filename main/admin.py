@@ -3,7 +3,7 @@ from . models import (
     ContactMessage,
     Intro,
     About,
-    Service,
+    Project,
     Education,
     Experience,
     Skill,
@@ -24,8 +24,8 @@ class IntroAdmin(admin.ModelAdmin):
 class AboutAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'title')
 
-@admin.register(Service)
-class ServiceAdmin(admin.ModelAdmin):
+@admin.register(Project)
+class ProjectAdmin(admin.ModelAdmin):
     list_display = ('id', 'title')
 
 @admin.register(Education)

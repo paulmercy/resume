@@ -135,20 +135,20 @@ Start Content
     <div class="container px-lg-5"> 
       <!-- Heading -->
       <div class="position-relative d-flex text-center mb-5">
-        <h2 class="text-24 text-white-50 opacity-1 text-uppercase fw-600 w-100 mb-0">Services</h2>
-        <p class="text-9 text-white fw-600 position-absolute w-100 align-self-center lh-base mb-0">What I Do?<span class="heading-separator-line border-bottom border-3 border-primary d-block mx-auto"></span> </p>
+        <h2 class="text-24 text-white-50 opacity-1 text-uppercase fw-600 w-100 mb-0">Projects</h2>
+        <p class="text-9 text-white fw-600 position-absolute w-100 align-self-center lh-base mb-0">What I have Done?<span class="heading-separator-line border-bottom border-3 border-primary d-block mx-auto"></span> </p>
       </div>
       <!-- Heading end-->
       
       <div class="row">
         <div class="col-lg-11 mx-auto">
           <div class="row">
-            {% for service in services %}
+            {% for project in projects %}
             <div class="col-md-6">
               <div class="featured-box style-3 mb-5">
                 <div class="featured-box-icon text-primary bg-dark-1 shadow-sm rounded"> <i class="fas fa-circle"></i></div>
-                <h3 class="text-white">{{service.title}}</h3>
-                <p class="text-white-50 mb-0">{{service.desc|safe}}</p>
+                <h3 class="text-white">{{project.title}}</h3>
+                <p class="text-white-50 mb-0">{{project.desc|safe}}</p>
               </div>
             </div>
             {%  endfor %}    
@@ -315,7 +315,7 @@ Start Content
               <li class="social-icons-dribbble"><a data-bs-toggle="tooltip" href="{{contactinfo.dribbble}}" target="_blank" title="Dribbble"><i class="fab fa-dribbble"></i></a></li>
               <li class="social-icons-twitter"><a data-bs-toggle="tooltip" href="{{contactinfo.twitter}}" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a></li>
               <li class="social-icons-linkedin"><a data-bs-toggle="tooltip" href="{{contactinfo.linkedin}}" target="_blank" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
-              <li class="social-icons-instagram"><a data-bs-toggle="tooltip" href="{{contactinfo.instagram}}" target="_blank" title="Google"><i class="fab fa-instagram"></i></a></li>
+              <li class="social-icons-instagram"><a data-bs-toggle="tooltip" href="{{contactinfo.instagram}}" target="_blank" title="instagram"><i class="fab fa-instagram"></i></a></li>
               <li class="social-icons-github"><a data-bs-toggle="tooltip" href="{{contactinfo.github}}" target="_blank" title="GitHub"><i class="fab fa-github"></i></a></li>
             </ul>
             {% endfor %}
