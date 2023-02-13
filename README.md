@@ -1,4 +1,4 @@
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/paulmercy/resume/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/paulmercy/resume/tree/master)
+
 # Personal Portfolio Django
 To run locally, do the usual:
 
@@ -6,7 +6,7 @@ To run locally, do the usual:
 
  2. Install dependencies: `python3 -m pip install -r requirements/dev.txt`
  3. Remame resume>dotenv file to resume>.env
- 4. key in the necessary AWS SES and Postgres db credentials
+ 4. key in the necessary SMTP client and Postgres db credentials
  
  3. Run server:
  `python3 manage.py runserver`
