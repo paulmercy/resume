@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
-    'environ'
+    'environ',
+    'storages'
 ]
 
 MIDDLEWARE = [
@@ -80,10 +81,16 @@ WSGI_APPLICATION = 'resume.wsgi.application'
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
+<<<<<<< HEAD
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
 
+=======
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+>>>>>>> 0e80b163243e2528e53a85aa689c67c56da1b044
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -141,6 +148,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
+
+
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),

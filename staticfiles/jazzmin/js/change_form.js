@@ -113,7 +113,11 @@
     function applySelect2() {
         // Apply select2 to any select boxes that don't yet have it
         // and are not part of the django's empty-form inline
+<<<<<<< HEAD
         const noSelect2 = '.empty-form select, .select2-hidden-accessible, .selectfilter, .selector-available select, .selector-chosen select, select[data-autocomplete-light-function=select2]';
+=======
+        const noSelect2 = '.empty-form select, .select2-hidden-accessible, .selectfilter, .selector-available select, .selector-chosen select';
+>>>>>>> 0e80b163243e2528e53a85aa689c67c56da1b044
         $('select').not(noSelect2).select2({ width: 'element' });
     }
 

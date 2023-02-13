@@ -56,7 +56,11 @@
         $('.related-lookup').append('<i class="fa fa-search"></i>')
 
         // Allow for styling of selects
+<<<<<<< HEAD
         $('.actions select').addClass('form-control').select2({ width: 'element' });
+=======
+        $('.actions select').addClass('form-control');
+>>>>>>> 0e80b163243e2528e53a85aa689c67c56da1b044
 
         searchFilters();
     });

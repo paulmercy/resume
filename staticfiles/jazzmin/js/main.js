@@ -48,6 +48,11 @@
         $main_li_parent.addClass('menu-is-opening menu-open');
     };
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 0e80b163243e2528e53a85aa689c67c56da1b044
     $(document).ready(function () {
         // Set active status on links
         setActiveLinks()

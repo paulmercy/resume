@@ -5,22 +5,26 @@ services:
     image: postgres:14
     restart: always
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - pg_data:/var/lib/postgresql/data/
     ports:
+<<<<<<< HEAD
       - '5433:5432'
+=======
+      - '5440:5432'
+>>>>>>> 0e80b163243e2528e53a85aa689c67c56da1b044
     env_file: resume/.env
-  web:
-    build: 
+
+  backend:
+    build:
       context: .
-    command: python manage.py runserver 0.0.0.0:8000
+      dockerfile: Dockerfile
+    env_file: resume/.env
     ports:
       - "8000:8000"
-    env_file: resume/.env
     volumes:
-      - .:/usr/scr/app
+      - .:/app
     depends_on:
       - db
 
 volumes:
-  postgres_data: 
-
+  pg_data: 
