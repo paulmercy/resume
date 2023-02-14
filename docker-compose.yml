@@ -7,11 +7,7 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data/
     ports:
-<<<<<<< HEAD
       - '5433:5432'
-=======
-      - '5440:5432'
->>>>>>> 0e80b163243e2528e53a85aa689c67c56da1b044
     env_file: resume/.env
 
   backend:
