@@ -40,8 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
-    'environ',
-    'storages'
+    'environ'
 ]
 
 MIDDLEWARE = [
@@ -55,6 +54,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'resume.urls'
+
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8080']
 
 TEMPLATES = [
     {
@@ -81,16 +82,11 @@ WSGI_APPLICATION = 'resume.wsgi.application'
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
-<<<<<<< HEAD
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
 
-=======
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
->>>>>>> 0e80b163243e2528e53a85aa689c67c56da1b044
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -158,6 +154,7 @@ STATICFILES_DIRS = [
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "mediafiles"
