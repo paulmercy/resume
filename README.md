@@ -4,7 +4,7 @@ To run locally, do the usual:
 
  1. Create a Python 3.8+ virtualenv and activate it
 
- 2. Install dependencies: `python3 -m pip install -r requirements/dev.txt`
+ 2. Install dependencies: `python3 -m pip install -r requirements.txt`
  3. Remame resume>dotenv file to resume>.env
  4. key in the necessary SMTP client and Postgres db credentials
  
